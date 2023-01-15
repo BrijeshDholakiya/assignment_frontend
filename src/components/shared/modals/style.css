@@ -7,7 +7,7 @@
   bottom: unset;
   transform: translate(-50%, -50%);
   border-radius: 5px;
-  box-shadow: 0 0 10px hsla(0, 0%, 0%, 0.15);
+  /* box-shadow: 0 0 10px hsla(0, 0%, 0%, 0.15); */
   background: #ffffff;
   width: 50%;
   height: auto;
@@ -19,7 +19,7 @@
   border-top-right-radius: 10px;
   border-top-left-radius: 10px;
   padding-bottom: unset;
-  padding-top: 20px;
+  /* padding-top: 20px; */
   font-weight: 700;
 }
 
@@ -36,7 +36,6 @@
   padding-top: 20px;
   padding-bottom: 20px;
   max-height: calc(100vh - 200px);
-  overflow: auto;
 }
 
 .modal__footer {
@@ -45,8 +44,8 @@
   justify-content: center;
   border-bottom-right-radius: 10px;
   border-bottom-left-radius: 10px;
-  padding-bottom: 40px;
-  padding-top: unset;
+  padding-bottom: 10px;
+  padding-top: 10px;
 }
 
 .modal__loading {
@@ -67,8 +66,12 @@
   margin-bottom: 7px;
 }
 
-@media (max-width: "900px") {
+@media only screen and (max-width: "1000px") {
   .form__row {
     flex-wrap: wrap;
+  }
+
+  .form__col {
+    width: 100%;
   }
 }

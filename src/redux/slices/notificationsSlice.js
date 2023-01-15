@@ -18,11 +18,8 @@ export const notificationsSlice = createSlice({
         (n) => n.message !== action.payload
       );
     },
-    addNotifications: (state, action) => {
-      state.value = [...action.payload];
-    },
   },
 });
 
-export const { add, close, addNotifications } = notificationsSlice.actions;
+export const { add, close } = notificationsSlice.actions;
 export default notificationsSlice.reducer;

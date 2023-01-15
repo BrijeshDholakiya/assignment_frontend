@@ -2,6 +2,7 @@ import { OutlinedInput } from "@mui/material";
 import { forwardRef } from "react";
 
 import "../modals/style.css";
+import "./style.css";
 
 export const capitalize = (str) => str[0]?.toUpperCase?.() + str?.slice?.(1);
 
@@ -20,7 +21,7 @@ export const BaseInputItem = forwardRef(
         <Label title={capitalize(title)} htmlFor={id} />
         <InputElement
           placeholder={capitalize(title)}
-          className={`form__input ${error ? "form__input_invalid" : ""}`}
+          className={`${error ? "form__input_invalid" : ""}`}
           type={"text"}
           id={id}
           {...props}
@@ -67,16 +68,13 @@ export const ErrorMessage = ({ error, className }) => {
   return (
     error && (
       <div
-        className={`form__msg form__msg_invalid ${className || ""} ${
-          error ? "form__msg_visible" : ""
-        }`}
         style={{
           fontSize: "12px",
           fontWeight: "500",
         }}
       >
-        {error && error?.message && (
-          <span style={{ color: "red" }}>{error.message}</span>
+        {error?.message && (
+          <span style={{ color: "red" }}>{error?.message}</span>
         )}
       </div>
     )

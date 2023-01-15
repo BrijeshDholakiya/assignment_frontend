@@ -26,6 +26,11 @@ const store = configureStore({
       .concat(departmentApi.middleware),
 });
 
+/* `
+ *  A utility used to enable refetchOnMount and refetchOnReconnect behaviors.
+ *  It requires the dispatch method from your store.
+ *  Calling setupListeners(store.dispatch) will configure listeners with the recommended defaults.`
+ */
 setupListeners(store.dispatch);
 
 // Dispatch action with the help of actions method

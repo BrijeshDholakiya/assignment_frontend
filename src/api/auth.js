@@ -35,7 +35,7 @@ export const authApi = createApi({
     logout: builder.mutation({
       query: () => ({
         url: "logout",
-        method: "POST",
+        method: "GET", // remove cookie and Auth token from browser session
       }),
     }),
   }),

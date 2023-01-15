@@ -1,4 +1,4 @@
-import React, { useState, memo, Fragment } from "react";
+import React, { memo, Fragment } from "react";
 import TableCell from "@mui/material/TableCell";
 import TableRow from "@mui/material/TableRow";
 import {
@@ -19,12 +19,9 @@ const DisplayTable = memo((props) => {
   const { data, column, isLoading, count } = props;
 
   const queryObj = useSelector((state) => state?.query?.query);
-  const [page, setPage] = useState(queryObj?.page);
-  //   const [rowsPerPage, setRowsPerPage] = useState(queryObj?.limit);
 
-  const handleChangePage = (e, newPage) => {
-    setPage(newPage);
-    actions.query.selectQuery({ page: newPage });
+  const handleChangePage = (e, page) => {
+    actions.query.selectQuery({ page });
   };
 
   return (
@@ -80,7 +77,7 @@ const DisplayTable = memo((props) => {
           component="div"
           count={count < 5 ? queryObj?.page * 5 + data?.length : -1}
           rowsPerPage={5}
-          page={page}
+          page={queryObj?.page || 0}
           onPageChange={handleChangePage}
           //   onRowsPerPageChange={handleChangeRowsPerPage}
         />
@@ -97,14 +94,18 @@ export const NoResult = ({ tabHeight }) => (
   </div>
 );
 
-/*
- *   For Changing limit Uncomment this function.
+/*  `
+ *   For Changing limit Uncomment this function. `
  */
 //   const handleChangeRowsPerPage = ({ target: { value } }) => {
 //     setRowsPerPage(parseInt(value, 10));
 //     setPage(0);
 //   };
 
+/*
+ *  1. - Counting Empty Rows
+ *  2. - Empty row component
+ */
 //   const emptyRows =
 //     page > 0 ? Math.max(0, (1 + page) * 5 - data?.length) * 53 : 0;
 

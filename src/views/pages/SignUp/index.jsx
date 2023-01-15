@@ -1,38 +1,23 @@
-import * as React from "react";
 import Button from "@mui/material/Button";
-import CssBaseline from "@mui/material/CssBaseline";
 import Grid from "@mui/material/Grid";
-import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Controller, useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { FormControl, MenuItem, Paper, Select } from "@mui/material";
+
+import "../../../components/shared/modals/style.css";
 import {
   ErrorMessage,
+  FormRow,
   InputItem,
   Label,
 } from "../../../components/shared/forms";
-import { yupResolver } from "@hookform/resolvers/yup";
 import { Validation } from "../../../constants/validation/schema";
-import { FormControl, MenuItem, Select } from "@mui/material";
 import { useRegisterMutation } from "../../../api/auth";
-// import { actions } from "../../../redux/store/store";
 import { sendSuccessMessage } from "../../../constants/validation/sendSuccessMsg";
 import { checkForError } from "../../../constants/validation/errorHandlers";
-
-const theme = createTheme();
-
-const genderStatus = [
-  { title: "Male", value: "male" },
-  { title: "Female", value: "female" },
-  { title: "Other", value: "other" },
-];
-
-const rolesArr = [
-  { title: "Manager", value: "manager" },
-  { title: "Employee", value: "employee" },
-];
 
 export default function SignUp() {
   const navigate = useNavigate();
@@ -58,29 +43,46 @@ export default function SignUp() {
     if (data?.data?.success) {
       sendSuccessMessage("Register successfully!");
       navigate("/login");
-    } else {
-      checkForError(data);
-    }
+    } else checkForError(data);
   };
 
   return (
-    <ThemeProvider theme={theme}>
-      <Container component="main" maxWidth="xs">
-        <CssBaseline />
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-          }}
+    <Container
+      style={{
+        margin: "unset",
+        width: "100%",
+        height: "100vh",
+      }}
+    >
+      <Paper
+        className="modal"
+        sx={{
+          width: "50%",
+          p: 2,
+          boxShadow: "1px 1px 7px rgba(0.5 0.1 0.1)",
+          borderRadius: "10px",
+          "&:hover": {
+            boxShadow: "8px 8px 15px rgba(0.5 0.5 1)",
+          },
+        }}
+      >
+        <Typography
+          component="h1"
+          variant="h5"
+          sx={{ textAlign: "center", fontWeight: "600" }}
         >
-          <Typography variant="h4" color="text.secondary" align="center">
-            SignUP
-          </Typography>
+          Sign Up
+        </Typography>
+        <FormRow>
           <InputItem name="email" type="email" form={form} />
           <InputItem name="password" type="password" form={form} />
+        </FormRow>
+        <FormRow>
           <InputItem name="firstName" title="First Name" form={form} />
           <InputItem name="lastName" title="Last Name" form={form} />
+        </FormRow>
+
+        <FormRow>
           <InputItem name="hobbies" form={form} />
 
           <div
@@ -121,6 +123,8 @@ export default function SignUp() {
               />
             </FormControl>
           </div>
+        </FormRow>
+        <FormRow>
           <div
             style={{
               display: "flex",
@@ -160,22 +164,33 @@ export default function SignUp() {
               />
             </FormControl>
           </div>
-          <Button
-            disabled={isLoading}
-            onClick={handleSubmit(handleSignUp)}
-            fullWidth
-            variant="contained"
-            sx={{ mt: 3, mb: 2 }}
-          >
-            Sign UP
-          </Button>
-          <Grid container>
-            <Grid item>
-              <Link to="/login">{"Already have an account? Login"}</Link>
-            </Grid>
+        </FormRow>
+        <Button
+          disabled={isLoading}
+          onClick={handleSubmit(handleSignUp)}
+          fullWidth
+          variant="contained"
+          sx={{ mt: 3, mb: 2 }}
+        >
+          Sign UP
+        </Button>
+        <Grid container>
+          <Grid item>
+            <Link to="/login">{"Already have an account? Login"}</Link>
           </Grid>
-        </Box>
-      </Container>
-    </ThemeProvider>
+        </Grid>
+      </Paper>
+    </Container>
   );
 }
+
+const genderStatus = [
+  { title: "Male", value: "male" },
+  { title: "Female", value: "female" },
+  { title: "Other", value: "other" },
+];
+
+const rolesArr = [
+  { title: "Manager", value: "manager" },
+  { title: "Employee", value: "employee" },
+];
